@@ -1,0 +1,191 @@
+table {
+    width: 95%;
+    text-align: center;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+        rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    margin: auto;
+    
+    background: #fff;
+}
+th,
+td {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 50px;
+    border-bottom: 1px solid rgb(35, 35, 35, 0.5);
+}
+thead {
+    background: rgb(35, 35, 35, 0.2);
+}
+.car {
+    font-size: xx-large;
+}
+.head {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.filter-bar {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.input-container {
+    margin-right: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.delfilter {
+    color: #232323;
+    font-size: medium;
+}
+
+.input {
+    width: 300px;
+    border-radius: 10px;
+    border: 0;
+    justify-content: center;
+    border: 1px solid rgb(35, 35, 35, 0.5);
+    padding: 10px;
+}
+.inputlist {
+    padding: 10px;
+    background: #e0e0e0;
+    font-size: large;
+}
+.btns {
+    background: #232323;
+    color: #fff;
+    border: 0;
+    border-radius: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    height: 45px;
+}
+.btns:hover {
+    background: #e0e0e0;
+    color: #232323;
+    border: 1px solid #232323;
+}
+.btns i {
+    padding: 5px;
+}
+.img {
+    width: 100px;
+    height: auto;
+    padding: 0;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+}
+#myBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    color: #232323;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 70px;
+}
+.pagin {
+    margin: 5px 0;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pagin .page-link {
+    background: rgb(35, 35, 35);
+    border: 1px solid #e0e0e0;
+    color: #e0e0e0;
+}
+.pagin .page-link:hover {
+    background: rgb(35, 35, 35, 0.5);
+    border: 1px solid #e0e0e0;
+    color: #e0e0e0;
+}
+.noresult{
+    margin: 50px;
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-tab {
+    overflow-y: scroll;
+}
+
+/* Estilo para el contenido del modal */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 1000px;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Estilo para el botón de cerrar */
+.close {
+    color: #232323;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: end;
+}
+
+.close:hover,
+.close:focus {
+    color: #232323;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* Estilos para centrar la imagen dentro del modal */
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-body {
+    text-align: center;
+}
+
+#imagenAmpliada {
+    max-width: 90%;
+    max-height: 80vh;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+.modalimage {
+    max-width: 100px; /* Ajusta el tamaño máximo de la imagen según tu diseño */
+    margin-right: 20px; /* Espacio entre la imagen y el SKU */
+    margin-bottom: 30px;
+    align-items: center;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 10px;
+}
+.modalinfo {
+    display: flex;
+    margin-left: 20px;
+}

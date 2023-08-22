@@ -1,0 +1,50 @@
+.content{
+    margin:0px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.card-body{
+    display: block;
+    text-align: center;
+}
+.s{
+    background: #232323;
+    border-top-right-radius: 900px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+}
+.campo {
+    margin: 10px;
+    text-align: start;
+}
+.text{
+    font-size: large;
+    color: #232323;
+    font-weight: bold;
+}
+.inputd{
+
+    margin: auto;
+}
+.input{
+    text-align: center;
+    border: 0;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+.input::placeholder{
+    text-align: center;
+    color: #CCD1D1;
+}
+.btn{
+    background: #232323;
+    color: #FFF;
+    margin-top: 30px;
+    width: 300px;
+    border: 0;
+
+}
+.btn:hover{
+    background: #E0E0E0;
+    color: #232323;
+}
