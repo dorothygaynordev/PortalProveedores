@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\ArticlesController;
-use App\Http\Controllers\ProvidersController;
-use App\Http\Controllers\SearchController;
-use App\Models\StockStoreModel;
+use App\Http\Controllers\{ArticlesController,InventoryController, StoreController,ProvidersController};
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,6 +26,9 @@ Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('home/{provider_id}', [ArticlesController::class, 'index'])->name('ArticlesAll'); Mostrar articulos filtrados por proveedor
 Route::get('home', [ArticlesController::class, 'index'])->name('ArticlesAll');
+Route::get('detailWeek', [InventoryController::class,'index'])->name('detailWeek');
+Route::get('detailStore', [StoreController::class,'index'])->name('detailStore');
+
 // Route::get('/stock', [StockStoreController::class, 'index'])->name('Stock');
 Route::get('/buscar', 'SearchController@buscar')->name('buscar');
 

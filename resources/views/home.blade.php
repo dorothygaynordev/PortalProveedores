@@ -15,7 +15,7 @@
                 <div class="filter-bar">
                     <div class="input-container">
                         <input name="input"class="input" id="filtro" type="text"
-                            placeholder="Escriba SKU o característica">
+                            placeholder="Escriba SKU, categoría o modelo">
                         <button class="btns">Buscar</button>
                     </div>
                     <div class="input-container">
@@ -23,9 +23,9 @@
                             placeholder="Escriba nombre de proveedor">
                         <datalist name="provider_id" id="providerList">
                             @foreach ($providers as $provider)
-                                <option type="submit" class="inputlist" value="{{ $provider->ClaveProv }}">{{$provider->NomProv}}
+                            <option value="{{ $provider->ClaveProv }}  " >{{$provider->NomProv}}
                             @endforeach
-                        </datalist> 
+                        </datalist>
                         <button class="btns" type="submit"><i class="fa fa-filter fa-lg" aria-hidden="true"></i>Filtrar
                         </button>
                     </div>
@@ -33,11 +33,12 @@
                         <a href="{{ route('ArticlesAll') }}" class="delfilter"><i class="fa fa-trash"
                                 aria-hidden="true"></i> Limpiar filtros</a>
                     </div>
-                    
+
                 </div>
 
             </div>
         </form>
+
         {{-- Fin Cabecera --}}
         {{-- Inicio Tabla --}}
         <table>
@@ -45,19 +46,17 @@
                 <tr>
                     <th>Imagen</th>
                     <th>SKU</th>
-                    <th>Color</th>
                     <th>Modelo</th>
                     <th>Categoría</th>
                     <th>VTA</th>
                     <th>Costo</th>
-                    <th>Inv. Inicial</th>
+                    <th>Inv.Inicial</th>
                     <th>Inv.Final</th>
-                    <th>TOS</th>
+                    <th>ST</th>
                     <th>ENT</th>
-                    <th>PEN</th>
+                    <th>Ajustes</th>
                     <th>DEV</th>
-                    <th>Ult. Ent</th>
-                    <th>Existencia Tiendas</th>
+                    <th>Ver</th>
                 </tr>
             </thead>
             <tbody id="resultados">
@@ -70,19 +69,24 @@
                     <tr>
                         <td><img class="img"src="{{ $imageUrl }}" alt=""></td>
                         <td>{{ $article->SKU }}</td>
-                        <td>546-LATTE</td>
                         <td>{{ $article->Modelo }}</td>
                         <td>{{ $article->Categoria }}</td>
                         <td>{{ $article->Ventas }}</td>
-                        <td>$299.99</td>
+                        <td>${{ $article->Costo }}</td>
                         <td>{{ $article->InventarioI }}</td>
                         <td>{{ $article->InventarioF }}</td>
-                        <td>100%</td>
+                        <td>{{ $article->ST }}%</td>
                         <td>{{ $article->Entradas }}</td>
-                        <td>{{ $article->Pendientes }}</td>
+                        <td>{{ $article->Ajustes }}</td>
                         <td>{{ $article->Devoluciones }}</td>
-                        <td>{{ $article->Ult_Entrada }}</td>
-                        <td class="car" onclick="mostrarModal('{{ $article->SKU }}', '{{ $article->Modelo }}')">🛒</td>
+                        <td>    
+                            <form action="{{ route('detailWeek') }}" method="GET">
+                                @csrf
+                                <input type="hidden" name="sku" value="{{ $article->SKU }}">
+                                <input type="hidden" name="modelo" value="{{ $article->Modelo }}">
+                                <button class="buttonsub" type="submit"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i></button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -95,48 +99,9 @@
             </div>
         </div>
         <div id="filtro" class="pagin">
-            {!! $articles->onEachSide(1)->links() !!}
-
+            {{ $articles->appends(request()->query())->links() }}
         </div>
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="cerrarModal()">&times;</span>
-                <!-- Contenido del modal -->
-                <div class="modalinfo">
-                    <div>
-                        <img id="modalImage" src="" class="modalimage img">
-                    </div>
-                    <div>
 
-                        <h1 id="modalSKU"></h1>
-                        <p id="modalDescription"></p>
-                    </div>
-                </div>
-                <div class="modal-tab">
-
-                    <table class="modal-table">
-                        <thead>
-                            <tr>
-                                <th>Tienda</th>
-                                <th>Inventario</th>
-                                <th>Entradas</th>
-                                <th>Ventas</th>
-                                <th>TOS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>D003</td>
-                                <td>200</td>
-                                <td>100</td>
-                                <td>300</td>
-                                <td>45%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
         <!-- Modal para mostrar la imagen más grande -->
         <div class="modal fade" id="imagenModal" tabindex="-1" role="dialog" aria-labelledby="imagenModalLabel"
             aria-hidden="true">
@@ -149,53 +114,81 @@
         </div>
     </div>
 @endsection
-    <script>
-        function mostrarModal(sku, descripcion) {
-            // Actualiza el SKU y la descripción en el modal
-            document.getElementById('modalSKU').textContent = sku;
-            document.getElementById('modalDescription').textContent = descripcion;
-
-            var imageUrl = 'https://img.onlyclouddg.com/fotos/DG/' + sku + '/' + sku + '_1.jpg';
-            // Obtiene la URL de la imagen correspondiente al SKU
-
-            // Actualiza la fuente de la imagen en el modal
-            document.getElementById('modalImage').src = imageUrl;
-
-            // Muestra el modal
-            var modal = document.getElementById('myModal');
-            modal.style.display = 'block';
-        }
-
-        function cerrarModal() {
-            // Cierra el modal
-            var modal = document.getElementById('myModal');
-            modal.style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            var modal = document.getElementById("myModal");
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        };
-    </script>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        // Script para manejar el evento de clic en la imagen y mostrarla en el modal
-        $(document).ready(function() {
-            $('.img').click(function() {
-                const imageUrl = $(this).attr('src');
-                $('#imagenAmpliada').attr('src', imageUrl);
-                $('#imagenModal').modal('show');
-            });
-        });
-    </script>
-
+{{-- Detalle --}}
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    function mostrarModal(sku, descripcion) {
+        // Actualiza el SKU y la descripción en el modal principal
+        document.getElementById('modalSKU').textContent = sku;
+        document.getElementById('modalDescription').textContent = descripcion;
+
+        var imageUrl = 'https://img.onlyclouddg.com/fotos/DG/' + sku + '/' + sku + '_1.jpg';
+        // Obtiene la URL de la imagen correspondiente al SKU
+
+        // Actualiza la fuente de la imagen en el modal principal
+        document.getElementById('modalImage').src = imageUrl;
+
+        // Muestra el modal principal
+        var modal = document.getElementById('myModal');
+        modal.style.display = 'block';
+    }
+
+    function cerrarModal() {
+        // Cierra el modal principal
+        var modal = document.getElementById('myModal');
+        modal.style.display = 'none';
+    }
+
+    function showModalStore(sku, descripcion) {
+        // Actualiza el SKU y la descripción en el modal secundario
+        document.getElementById('modalSKUStore').textContent = sku;
+        document.getElementById('modalDescriptionStore').textContent = descripcion;
+
+        var imageUrl = 'https://img.onlyclouddg.com/fotos/DG/' + sku + '/' + sku + '_1.jpg';
+
+        // Actualiza la fuente de la imagen en el modal secundario
+        document.getElementById('modalImageStore').src = imageUrl;
+
+        // Muestra el modal secundario
+        var modal = document.getElementById('myModalStore');
+        modal.style.display = 'block';
+    }
+
+    function closeModalStore() {
+        // Cierra el modal secundario
+        var modal = document.getElementById('myModalStore');
+        modal.style.display = 'none';
+    }
+
+    // Controlador de eventos para cerrar los modales haciendo clic fuera de ellos
+    window.onclick = function(event) {
+        var modal = document.getElementById("myModal");
+        var modalStore = document.getElementById("myModalStore");
+
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+        if (event.target == modalStore) {
+            modalStore.style.display = "none";
+        }
+    };
+</script>
+{{-- Modal Foto --}}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Script para manejar el evento de clic en la imagen y mostrarla en el modal
+    $(document).ready(function() {
+        $('.img').click(function() {
+            const imageUrl = $(this).attr('src');
+            $('#imagenAmpliada').attr('src', imageUrl);
+            $('#imagenModal').modal('show');
+        });
+    });
+</script>
+{{-- No Result --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
         const resultados = document.getElementById("resultados"); // El elemento <tbody> de resultados
         const noResultsMessage = document.getElementById("no-results-message");
 
@@ -206,6 +199,26 @@
             noResultsMessage.style.display = "block";
         } else {
             noResultsMessage.style.display = "none";
+        }
+    });
+</script>
+
+
+<script>
+    // JavaScript para capturar la selección y establecer el valor de provider_id
+    var inputElement = document.getElementById('input');
+    var providerIdInput = document.getElementById('providerIdInput');
+    var dataList = document.getElementById('providerList');
+
+    inputElement.addEventListener('input', function() {
+        var selectedOption = Array.from(dataList.options).find(function(option) {
+            return option.value === inputElement.value;
+        });
+
+        if (selectedOption) {
+            providerIdInput.value = selectedOption.getAttribute('data-claveprov');
+        } else {
+            providerIdInput.value = ''; // Limpiar el valor si no se selecciona ningún proveedor válido.
         }
     });
 </script>

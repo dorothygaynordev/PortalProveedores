@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->unsignedBigInteger('provider_id')->nullable();
-            $table->foreign('provider_id')->references('ClaveProv')->on('proveedores');
+            $table->string('provider_id');
             $table->rememberToken();
             $table->timestamps();
         });

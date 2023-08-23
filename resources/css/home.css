@@ -17,6 +17,11 @@ td {
 thead {
     background: rgb(35, 35, 35, 0.2);
 }
+.tab{
+    overflow: scroll;
+    width: 100%;
+    height: auto;
+}
 .car {
     font-size: xx-large;
 }
@@ -127,10 +132,18 @@ thead {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
 }
+.imgcontent{
+    margin-right: 30px;
+}
 .modal-tab {
     overflow-y: scroll;
 }
 
+.info{
+
+    text-align: center;
+    margin-bottom:40px ;
+}
 /* Estilo para el contenido del modal */
 .modal-content {
     background-color: #fff;
@@ -188,4 +201,24 @@ thead {
 .modalinfo {
     display: flex;
     margin-left: 20px;
+}
+.buttonsub {
+border: 0;
+background: none;
+}
+.errore{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+.return i{
+    color: #232323;
+margin-left: 50px;
+    align-items: center;
+}
+.return label{
+    color: #232323;
+    font-size: x-large;
 }

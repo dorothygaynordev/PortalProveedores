@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\ProvidersModel;
 use App\Models\ArticlesModel;
+use App\Models\InventoryModel;
 use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
@@ -32,6 +33,8 @@ class ArticlesController extends Controller
     public function details($sku){
         $article = ArticlesModel::where('SKU',$sku)->first();
         $descripcion = $article->descripcion;
+
+        $inventario = InventoryModel::where('SKU',$sku)->first();
 
         return view('home',['article' => $article, 'descripcion' => $descripcion]);
     }
