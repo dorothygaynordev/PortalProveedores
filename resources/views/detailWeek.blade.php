@@ -3,19 +3,7 @@
 
 <div>
     @section('content')
-        @vite(['resources/css/home.css'])
-        <div>
-            <div class="return">
-                <a  href="javascript:history.back();">
-                    <i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i><label for="">Regresar</label>
-                </a>
-                
-            </div>
-            <div>
-                <h1 class="info">Información por periodo</h1>
-            </div>
-
-        </div>
+    <link rel="stylesheet" href="{{ asset('assets/home.css') }}">
         
         @foreach ($inventario as $inv)
         @php
@@ -25,14 +13,20 @@
                 @endphp
         @endforeach
         <div class="modal-content">
-            
+            <div  class="return">
+                <a   href="javascript:history.back();">
+                    <i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i><label for="">Regresar</label>
+                    
+                </a>
+                
+            </div>
             <div class="modalinfo">
                 <div class="imgcontent">
 
                     <img class="img" src="{{ $imageUrl }}" alt="">
                 </div>
                 <div>
-                    <h1>{{ $inv->SKU }}</h1> <br>
+                    <h1>{{ $inv->SKU }}</h1>
                     <p>{{ $inv->Modelo }}</p>
                 </div>
             </div>
@@ -70,7 +64,34 @@
                     </tbody>
 
                 </table>
+
             </div>
+            
         </div>
+                <!-- Modal para mostrar la imagen más grande -->
+                <div class="modal fade" id="imagenModal" tabindex="-1" role="dialog" aria-labelledby="imagenModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+    
+                    <div class="modal-body">
+                        <img id="imagenAmpliada" class="img-fluid" src="" alt="Imagen Ampliada">
+                    </div>
+                </div>
+            </div>
     @endsection
+    
+{{-- Modal Foto --}}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Script para manejar el evento de clic en la imagen y mostrarla en el modal
+    $(document).ready(function() {
+        $('.img').click(function() {
+            const imageUrl = $(this).attr('src');
+            $('#imagenAmpliada').attr('src', imageUrl);
+            $('#imagenModal').modal('show');
+        });
+    });
+</script>
 </div>

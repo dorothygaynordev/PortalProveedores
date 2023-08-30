@@ -1,7 +1,9 @@
 @extends('layouts.app')
 <title>Proveedores Login</title>
 @section('content')
-    @vite(['resources/css/Login/login.css'])
+<link rel="stylesheet" href="{{ asset('assets/login.css') }}">
+<link rel="stylesheet" href="{{asset('assets/sass/app.scss')}}">
+<script>{{asset('assets/js/app.js')}}</script>
     <div class="principal">
         <div class="row justify-content-center">
             <div class="">

@@ -3,21 +3,18 @@
 
 <div>
     @section('content')
-        @vite(['resources/css/home.css'])
+    <link rel="stylesheet" href="{{ asset('assets/home.css') }}">
         <div>
+            
+
+        </div>
+        <div class="modal-content">
             <div  class="return">
                 <a   href="javascript:history.back();">
                     <i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i><label for="">Regresar</label>
                 </a>
                 
             </div>
-            <div>
-                <h1 class="info">Información por Tienda</h1>
-            </div>
-
-        </div>
-        <div class="modal-content">
-        
                 @foreach ($tienda->unique() as $store)
                     @php
                         // Concatenar el SKU a la URL base de la imagen
@@ -30,7 +27,7 @@
                             <img class="img" src="{{ $imageUrl }}" alt="">
                         </div>
                         <div>
-                            <h1>{{ $store->SKU }}</h1> <br>
+                            <h1>{{ $store->SKU }}</h1>
                             <p>{{ $store->Modelo }}</p>
                         </div>
                     </div>

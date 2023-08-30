@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\ArticlesExport;
 use App\Http\Controllers\{ArticlesController,InventoryController, StoreController,ProvidersController};
 
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,7 @@ Auth::routes();
 Route::get('home', [ArticlesController::class, 'index'])->name('ArticlesAll');
 Route::get('detailWeek', [InventoryController::class,'index'])->name('detailWeek');
 Route::get('detailStore', [StoreController::class,'index'])->name('detailStore');
+Route::get('/export-to-excel', [ArticlesController::class, 'exportToExcel'])->name('exportToExcel');
 
 // Route::get('/stock', [StockStoreController::class, 'index'])->name('Stock');
 Route::get('/buscar', 'SearchController@buscar')->name('buscar');

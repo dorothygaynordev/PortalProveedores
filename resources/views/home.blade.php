@@ -8,10 +8,10 @@
 </head>
 <div style="background: #fff">
     @section('content')
-        @vite(['resources/css/home.css'])
+    <link rel="stylesheet" href="{{ asset('assets/home.css') }}">
 
         <form method="GET" action="{{ route('ArticlesAll') }}">
-            <div class="head">
+            @csrf            <div class="head">
                 <div class="filter-bar">
                     <div class="input-container">
                         <input name="input"class="input" id="filtro" type="text"
@@ -33,7 +33,10 @@
                         <a href="{{ route('ArticlesAll') }}" class="delfilter"><i class="fa fa-trash"
                                 aria-hidden="true"></i> Limpiar filtros</a>
                     </div>
-
+                    
+                </div>
+                <div class="input-container">
+                    <a href="{{ route('exportToExcel') }}" class="btn btn-success">Exportar a Excel</a>
                 </div>
 
             </div>
@@ -114,64 +117,6 @@
         </div>
     </div>
 @endsection
-{{-- Detalle --}}
-<script>
-    function mostrarModal(sku, descripcion) {
-        // Actualiza el SKU y la descripción en el modal principal
-        document.getElementById('modalSKU').textContent = sku;
-        document.getElementById('modalDescription').textContent = descripcion;
-
-        var imageUrl = 'https://img.onlyclouddg.com/fotos/DG/' + sku + '/' + sku + '_1.jpg';
-        // Obtiene la URL de la imagen correspondiente al SKU
-
-        // Actualiza la fuente de la imagen en el modal principal
-        document.getElementById('modalImage').src = imageUrl;
-
-        // Muestra el modal principal
-        var modal = document.getElementById('myModal');
-        modal.style.display = 'block';
-    }
-
-    function cerrarModal() {
-        // Cierra el modal principal
-        var modal = document.getElementById('myModal');
-        modal.style.display = 'none';
-    }
-
-    function showModalStore(sku, descripcion) {
-        // Actualiza el SKU y la descripción en el modal secundario
-        document.getElementById('modalSKUStore').textContent = sku;
-        document.getElementById('modalDescriptionStore').textContent = descripcion;
-
-        var imageUrl = 'https://img.onlyclouddg.com/fotos/DG/' + sku + '/' + sku + '_1.jpg';
-
-        // Actualiza la fuente de la imagen en el modal secundario
-        document.getElementById('modalImageStore').src = imageUrl;
-
-        // Muestra el modal secundario
-        var modal = document.getElementById('myModalStore');
-        modal.style.display = 'block';
-    }
-
-    function closeModalStore() {
-        // Cierra el modal secundario
-        var modal = document.getElementById('myModalStore');
-        modal.style.display = 'none';
-    }
-
-    // Controlador de eventos para cerrar los modales haciendo clic fuera de ellos
-    window.onclick = function(event) {
-        var modal = document.getElementById("myModal");
-        var modalStore = document.getElementById("myModalStore");
-
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-        if (event.target == modalStore) {
-            modalStore.style.display = "none";
-        }
-    };
-</script>
 {{-- Modal Foto --}}
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>

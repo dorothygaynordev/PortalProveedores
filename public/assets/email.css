@@ -1,0 +1,67 @@
+.car{
+    height: 250px;
+    
+}
+.content{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+.card-body{
+    height: 250px;
+    text-align: center;
+}
+
+.card-header{
+    font-size: 30px;
+    color: #E0E0E0;
+    padding-top: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+.i{
+  font-size: xx-large;  
+}
+.s{
+    height: 250px;
+    background: #232323;
+    color: #E0E0E0;
+    text-align: center;
+}
+.ss{
+    height: 250px;
+    background: #E0E0E0;
+}
+.text{
+    font-size: large;
+    color: #232323;
+    font-weight: bold;
+}
+.text{
+    font-size: large;
+    color: #232323;
+    font-weight: bold;
+    font-size: x-large;
+}
+.tag{
+    text-align: center;
+
+}
+.inputd{
+    padding: 20px;
+}
+.input{
+    
+    width: 100%;
+    border: 0;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+.login{
+    background: #232323;
+    border: 0;
+    width: 300px;
+
+}
+.login:hover{
+    background: #232323;
+    color: #E0E0E0;
+}
