@@ -1,5 +1,13 @@
-
-table {
+#table {
+    width: 95%;
+    text-align: center;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+        rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    margin: auto;
+    border-collapse: collapse;
+    background: #fff;
+}
+#tienda{
     width: 95%;
     text-align: center;
     box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
@@ -16,18 +24,16 @@ td {
     border-bottom: 1px solid rgb(35, 35, 35, 0.5);
 }
 thead {
-    background: #D3D3D3 ;
+    background: #d3d3d3;
     position: sticky;
     top: 0;
 }
-.tab{
+.tab {
     overflow: scroll;
     width: 100%;
     height: auto;
 }
-.car {
-    font-size: xx-large;
-}
+
 .head {
     width: 100%;
     max-width: 100%;
@@ -50,14 +56,13 @@ thead {
     padding-right: 30px;
     text-align: center;
 }
-.export{
-    background: #004F32;
+.export {
+    background: #004f32;
     color: #e0e0e0;
 }
 .delfilter {
     color: #232323;
     font-size: medium;
-    
 }
 
 .input {
@@ -93,7 +98,7 @@ thead {
 .img {
     width: 100px;
     height: auto;
-    padding: 0;
+    padding:0 ;
     align-items: center;
     border-radius: 10px;
     box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
@@ -119,7 +124,6 @@ thead {
     justify-content: end;
     margin-right: 40px;
     align-items: center;
-    
 }
 /* .pagin .page-link {
     background: rgb(35, 35, 35);
@@ -127,17 +131,16 @@ thead {
     color: #e0e0e0;
 } */
 .pagin .page-link {
-
     color: #232323;
     border: 1px solid #e0e0e0;
-} 
-.active>.page-link{
+}
+.active > .page-link {
     background-color: #232323;
     border-color: #232323;
     color: #e0e0e0;
 }
 
-.noresult{
+.noresult {
     margin: 50px;
 }
 .modal {
@@ -149,10 +152,11 @@ thead {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
 }
-.imgcontent{
+.imgcontent {
     margin-right: 30px;
 }
 .modal-tab {
+    margin-top: 30px;
     overflow-y: scroll;
     scrollbar-width: thin; /* Ancho de la barra de desplazamiento (puede ser 'auto' o 'thin') */
     scrollbar-color: #888 #f4f4f4; /* Color de la barra y el fondo (puede personalizar los colores) */
@@ -172,10 +176,9 @@ thead {
     border-radius: 10px; /* Radio de borde de la barra de desplazamiento */
 }
 
-.info{
-
+.info {
     text-align: center;
-    margin-bottom:40px ;
+    margin-bottom: 40px;
 }
 /* Estilo para el contenido del modal */
 .modal-content {
@@ -188,7 +191,8 @@ thead {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+        rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 /* Estilo para el botón de cerrar */
@@ -234,34 +238,99 @@ thead {
 }
 .modalinfo {
     display: flex;
-margin-bottom: 30px;
-margin-left: 25px;
+    margin-left: 25px;
 }
 .buttonsub {
-border: 0;
-background: none;
+    border: 0;
+    background: none;
 }
-.errore{
+.errore {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 500px;
 }
-.return{
+.return {
     position: absolute;
-    top: 0;
-    right: 10;
+    top: 5;
+    left: 10;
     display: flex;
     align-items: center;
 }
-.return i{
+.return i {
     color: #232323;
-margin-right: 5px;
-    
+    margin-right: 5px;
 }
-.return label{
+.return label {
     color: #232323;
     font-size: large;
     font-weight: bold;
+}
+.title{
+    position: absolute;
+    top: 5;
+    right: 10;
+    display: flex;
+    
+}
+.dataTables_filter input[type="search"] {
+    font-size: 14px;
+    text-align: center;
+    margin-right: 30px;
+    margin-bottom: 20px;
+    width: 300px;
+    border-radius: 10px;
+    border: 0;
+    justify-content: center;
+    border: 1px solid rgb(35, 35, 35, 0.5);
+    padding: 10px;
+}
+@media screen and (max-width: 992px) {
+    .filter-bar {
+        display: block;
+    }
+
+    .input-container {
+        padding-left: 10px;
+    }
+    .input {
+        width: 210px;
+        margin-bottom:10px ;
+    }
+    .btn{
+        margin-top: 10px;
+    }
+    .btns {
+        background: #232323;
+        color: #fff;
+        border: 0;
+        border-radius: 10px;
+        padding-right: 10px;
+        padding-left: 10px;
+        width: 100px;
+    }
+    table {
+        display: block;
+        overflow-x: auto;
+        margin: 10px;
+        width: 350px;
+        justify-content: center;
+    }
+    .img {
+        width: 100px;
+        height: auto;
+        padding: 0;
+        align-items: center;
+        border-radius: 10px;
+        box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    }
+    .pagin {
+        margin: 1px 0;
+        list-style-type: none;
+        display: flex;
+        justify-content: end;
+        margin-right: 40px;
+        align-items: center;
+    }
 }

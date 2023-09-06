@@ -97,3 +97,67 @@
     font-size: medium;
     color: #232323;
 }
+@media screen and (max-width:992px) {
+    .principal{
+        width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: auto;
+        margin-bottom: auto;
+
+        
+    }
+    .card-body{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 100px;
+        border-radius: 20px;
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+    }
+    .but{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+    }
+    .buttons{
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        padding: 10px;
+    }
+    .login{
+        background: #232323;
+        border: 0;
+        width: 250px;
+        font-weight: bold;
+        font-size: small;
+        margin-left: 15px;
+        margin-bottom: 5px;
+    }
+    .login:hover{
+        background: #E0E0E0;
+        color: #232323;
+    }
+    .log{
+        background: #232323;
+        border: 0;
+        width: 50px;
+        margin: 10px;
+    }
+    .log:hover{
+        background: #E0E0E0;
+        color: #232323;
+    }
+    .register{
+        background: #C2C9CD;
+        color: #232323;
+        border: 0;
+        width: 250px;
+        font-weight: bold;
+        font-size: small;
+        margin-left: 15px;
+    }
+    .reco{
+        color: #232323;
+        font-size: small;
+    }
+}

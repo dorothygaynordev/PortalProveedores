@@ -1,0 +1,16 @@
+.navbar{
+    justify-content: center;
+    width: auto;
+} 
+.logo{
+    margin-left:500;
+}
+@media screen and (max-width:992px){
+    .navbar-nav{
+        margin: auto;
+    }
+    .logo{
+        margin-left: 0px;
+    }
+
+}

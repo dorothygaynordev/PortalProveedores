@@ -21,9 +21,9 @@
                             @csrf
 
                             {{-- <input  name="provider_id" value="{{ $provider_id }}"> --}}
-
-
+                            
                             <div class="campo">
+                                {{-- <input type="hidden" name="provider_id" value="{{ $provider_id }}"> --}}
                                 <div>
 
                                     <label class="text" for="email">{{ __('Correo') }}</label>
@@ -39,6 +39,7 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                                    {{-- <input  name="provider_id" value="{{ $provider_id }}"> --}}
                                 </div>
                             </div>
 
@@ -61,14 +62,14 @@
                             </div>
                             <div class="buttons">
                                 
-                                <div>
+                                <div class="but">
                                     <div class="">
                                         @if (Route::has('login'))
                                         <button type="submit" class="login btn btn-primary">
                                                 {{ __('Login') }}
                                             </button>
                                         @endif
-                                        
+                              
                                         @if (Route::has('register'))
                                         <button class="register btn btn-secondary" style="list-style:none">
                                             <a class="nav-link"

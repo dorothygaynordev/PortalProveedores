@@ -1,17 +1,24 @@
 @extends('layouts.app')
 <title>ProveedoresDG</title>
 
+@section('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+@endsection
+
 <head>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
 </head>
 <div style="background: #fff">
     @section('content')
-    <link rel="stylesheet" href="{{ asset('assets/home.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/home.css') }}">
 
         <form method="GET" action="{{ route('ArticlesAll') }}">
-            @csrf            <div class="head">
+            @csrf <div class="head">
                 <div class="filter-bar">
                     <div class="input-container">
                         <input name="input"class="input" id="filtro" type="text"
@@ -19,24 +26,31 @@
                         <button class="btns">Buscar</button>
                     </div>
                     <div class="input-container">
-                        <input class="input" type="text" id="input" name="provider_id" list="providerList"
-                            placeholder="Escriba nombre de proveedor">
-                        <datalist name="provider_id" id="providerList">
-                            @foreach ($providers as $provider)
-                            <option value="{{ $provider->ClaveProv }}  " >{{$provider->NomProv}}
-                            @endforeach
-                        </datalist>
-                        <button class="btns" type="submit"><i class="fa fa-filter fa-lg" aria-hidden="true"></i>Filtrar
-                        </button>
+                        @if (Auth::user()->provider_id === '0000')
+                            <input class="input" type="text" id="input" name="provider_id" list="providerList"
+                                placeholder="Escriba nombre de proveedor">
+                            <datalist name="provider_id" id="providerList">
+                                @foreach ($providers as $provider)
+                                    <option value="{{ $provider->ClaveProv }}  ">{{ $provider->NomProv }}
+                                @endforeach
+                            </datalist>
+                            <button class="btns" type="submit"><i class="fa fa-filter fa-lg"
+                                    aria-hidden="true"></i>Filtrar
+                            </button>
+                        @else
+                            <input type="hidden" name="provider_id" value="{{ Auth::user()->provider_id }}">
+                        @endif
                     </div>
                     <div class="input-container">
                         <a href="{{ route('ArticlesAll') }}" class="delfilter"><i class="fa fa-trash"
                                 aria-hidden="true"></i> Limpiar filtros</a>
                     </div>
-                    
-                </div>
-                <div class="input-container">
-                    <a href="{{ route('exportToExcel') }}" class="btn btn-success">Exportar a Excel</a>
+
+                    <div class="input-container">
+                        <a href="{{ route('exportToExcel', ['provider_id' => request('provider_id'), 'input' => request('input')]) }}"
+                            class="btn btn-success">Exportar a Excel <i class="fa fa-table" aria-hidden="true"></i></a>
+
+                    </div>
                 </div>
 
             </div>
@@ -44,7 +58,7 @@
 
         {{-- Fin Cabecera --}}
         {{-- Inicio Tabla --}}
-        <table>
+        <table id="table" class="resultados">
             <thead>
                 <tr>
                     <th>Imagen</th>
@@ -56,9 +70,9 @@
                     <th>Inv.Inicial</th>
                     <th>Inv.Final</th>
                     <th>ST</th>
-                    <th>ENT</th>
+                    <th>Entradas</th>
                     <th>Ajustes</th>
-                    <th>DEV</th>
+                    <th>Devoluciones</th>
                     <th>Ver</th>
                 </tr>
             </thead>
@@ -68,9 +82,18 @@
                         // Concatenar el SKU a la URL base de la imagen
                         $imageUrl = 'https://img.onlyclouddg.com/fotos/DG/' . $article->SKU . '/' . $article->SKU . '_1.jpg';
                         // dd($imageUrl);
+                        $image = @getimagesize($imageUrl);
+                        
                     @endphp
                     <tr>
-                        <td><img class="img"src="{{ $imageUrl }}" alt=""></td>
+                        <td>
+                            @if ($image)
+                                <img class="img"src="{{ $imageUrl }}" alt="">
+                            @else
+                                <i class="fa fa-picture-o fa-4x" style="color: #E0E0E0; padding:15px"
+                                    aria-hidden="true"></i>
+                            @endif
+                        </td>
                         <td>{{ $article->SKU }}</td>
                         <td>{{ $article->Modelo }}</td>
                         <td>{{ $article->Categoria }}</td>
@@ -82,12 +105,13 @@
                         <td>{{ $article->Entradas }}</td>
                         <td>{{ $article->Ajustes }}</td>
                         <td>{{ $article->Devoluciones }}</td>
-                        <td>    
+                        <td>
                             <form action="{{ route('detailWeek') }}" method="GET">
                                 @csrf
                                 <input type="hidden" name="sku" value="{{ $article->SKU }}">
                                 <input type="hidden" name="modelo" value="{{ $article->Modelo }}">
-                                <button class="buttonsub" type="submit"><i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i></button>
+                                <button class="buttonsub" type="submit"><i class="fa fa-file-text-o fa-2x"
+                                        aria-hidden="true"></i></button>
                             </form>
                         </td>
                     </tr>
@@ -144,26 +168,6 @@
             noResultsMessage.style.display = "block";
         } else {
             noResultsMessage.style.display = "none";
-        }
-    });
-</script>
-
-
-<script>
-    // JavaScript para capturar la selección y establecer el valor de provider_id
-    var inputElement = document.getElementById('input');
-    var providerIdInput = document.getElementById('providerIdInput');
-    var dataList = document.getElementById('providerList');
-
-    inputElement.addEventListener('input', function() {
-        var selectedOption = Array.from(dataList.options).find(function(option) {
-            return option.value === inputElement.value;
-        });
-
-        if (selectedOption) {
-            providerIdInput.value = selectedOption.getAttribute('data-claveprov');
-        } else {
-            providerIdInput.value = ''; // Limpiar el valor si no se selecciona ningún proveedor válido.
         }
     });
 </script>

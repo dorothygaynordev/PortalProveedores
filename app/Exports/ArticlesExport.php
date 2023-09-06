@@ -3,8 +3,10 @@
 namespace App\Exports;
 use App\Models\ArticlesModel;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ArticlesExport implements FromCollection
+
+class ArticlesExport implements FromCollection,WithHeadings
 {
     protected $articles;
 
@@ -16,5 +18,22 @@ class ArticlesExport implements FromCollection
     public function collection()
     {
         return $this->articles;
+    }
+    public function headings(): array
+    {
+        return [
+            'SKU',
+            'Modelo',
+            'Categoría',
+            'Costo',
+            'Ventas',
+            'Inventario Inicial',
+            'Inventario Final',
+            'Devoluciones',
+            'Entradas',
+            'Ajustes',
+            'ST',
+            
+        ];
     }
 }

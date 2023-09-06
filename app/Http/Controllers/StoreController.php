@@ -11,6 +11,7 @@ class StoreController extends Controller
         $semana = $request->input('semana');
         // $limit = 10;
         $tienda=StoreModel::where('sku',$sku)
+        ->orderBy('ventas','desc')
         ->where('semana',$semana)
         ->get();
         // dd($inventario);
