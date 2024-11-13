@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @endsection
 
+<head>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/icon.ico') }}">
+</head>
+
 
 <div>
     @section('content')
@@ -21,13 +25,17 @@
             @foreach ($tienda->unique() as $store)
                 @php
                     // Concatenar el SKU a la URL base de la imagen
-                    $imageUrl = 'https://img.onlyclouddg.com/fotos/DG/' . $store->SKU . '/' . $store->SKU . '_1.jpg';
+                    $imageUrl = 'https://posdg.onlyclouddg.com/img/miniaturas/' . $store->SKU . '.webp';
                     // dd($imageUrl);
+                    // $image = @getimagesize($imageUrl);
                 @endphp
                 <div class="modalinfo">
                     <div class="imgcontent">
-
-                        <img class="img" src="{{ $imageUrl }}" alt="">
+                        @if ($imageUrl !== false)
+                            <img class="img"src="{{ $imageUrl }}" alt="">
+                        @else
+                            <i class="fa fa-picture-o fa-4x" style="color: #E0E0E0; padding:15px" aria-hidden="true"></i>
+                        @endif
                     </div>
                     <div>
                         <h1>{{ $store->SKU }}</h1>
@@ -64,7 +72,7 @@
                             @foreach ($tienda as $store)
                                 <tr>
                                     <td>{{ $store->CenterId }}</td>
-                                    <td>{{$store->CenterName}}</td>
+                                    <td>{{ $store->CenterName }}</td>
                                     <td>{{ $store->Ventas }}</td>
                                     <td>{{ $store->InventarioI }}</td>
                                     <td>{{ $store->InventarioF }}</td>
@@ -117,14 +125,17 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var miTabla = new DataTable('#tienda', {
-                paging: false,
-                lengthChange: false,
-                info: false,
-                language: {
-                    search: "Buscar por tienda:"
-                }
-            });
+            @if (!$tienda->isEmpty())
+                var miTabla = new DataTable('#tienda', {
+                    paging: false,
+                    lengthChange: false,
+                    info: false,
+                    searching: false,
+                    language: {
+                        search: "Buscar por tienda:"
+                    }
+                });
+            @endif
         });
     </script>
 @endsection

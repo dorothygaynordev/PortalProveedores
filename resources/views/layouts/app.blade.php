@@ -10,6 +10,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/icon.ico') }}">
     <!-- Fonts -->
  <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -39,7 +40,7 @@
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="logo ">
                 <a href="{{ route('ArticlesAll') }}">
-                    <img class="image" style="scale: 50%"
+                    <img class="image" style="scale: 50%; margin-left:200px"
                         src="https://dorothygaynor.vtexassets.com/assets/vtex.file-manager-graphql/images/11f79ae5-9e46-4181-a35c-3de1e355443f___2eb680bd97c5dbc302eb74d88d39ad31.jpg"
                         alt="">
                 </a>

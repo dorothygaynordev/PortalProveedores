@@ -9,6 +9,7 @@
             <div class="">
                 <div class="ca">
                     
+                    <h2 style="text-align: center; margin-bottom:20px">Portal de proveedores DG</h2>
                     <div class="card-body">
                         <div class="user">
                             <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-person-circle icons" viewBox="0 0 16 16">
@@ -70,23 +71,15 @@
                                             </button>
                                         @endif
                               
-                                        @if (Route::has('register'))
-                                        <button class="register btn btn-secondary" style="list-style:none">
-                                            <a class="nav-link"
-                                            href="{{ route('register') }}">{{ __('Registrarse') }}</a>
-                                        </button>
-                                        @endif
+                                        @if (Route::has('password.request'))
+                                    <button class="register btn btn-secondary" style="list-style: none">
+                                        <a class="reco btn btn-link nav-link" href="{{ route('password.request') }}">
+                                            {{ __('Recuperar Contraseña') }}
+                                        </a>
+                                    </button>
+                                    @endif
                                         
                                     </div>
-                                </div>
-                                <div class="b">
-                                    
-                                    @if (Route::has('password.request'))
-                                    <a class="reco btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Recuperar Contraseña') }}
-                                    </a>
-                                    @endif
-                                    
                                 </div>
                             </div>
                         </form>

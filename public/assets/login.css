@@ -48,6 +48,10 @@
     margin-right: auto;
     text-align: center;
     padding: 10px;
+    
+}
+.but{
+    margin-bottom: 40px;
 }
 .login{
     background: #232323;

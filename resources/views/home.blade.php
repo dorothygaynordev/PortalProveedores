@@ -11,8 +11,10 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/icon.ico') }}">
 
 </head>
+
 <div style="background: #fff">
     @section('content')
         <link rel="stylesheet" href="{{ asset('assets/home.css') }}">
@@ -55,7 +57,14 @@
 
             </div>
         </form>
-
+        @if ($selectedProvider)
+            <div class="provider_name">
+                <p>{{ $selectedProvider->NomProv }}</p>
+                <p style="font-weight: bold"> Pares totales: <font color="red"> {{ $totalRecords }} </font>
+                </p>
+            </div>
+        @else
+        @endif
         {{-- Fin Cabecera --}}
         {{-- Inicio Tabla --}}
         <table id="table" class="resultados">
@@ -69,10 +78,11 @@
                     <th>Costo</th>
                     <th>Inv.Inicial</th>
                     <th>Inv.Final</th>
-                    <th>ST</th>
+                    <th>Rotación</th>
                     <th>Entradas</th>
                     <th>Ajustes</th>
                     <th>Devoluciones</th>
+                    <th>Descuento</th>
                     <th>Ver</th>
                 </tr>
             </thead>
@@ -80,21 +90,20 @@
                 @foreach ($articles as $article)
                     @php
                         // Concatenar el SKU a la URL base de la imagen
-                        $imageUrl = 'https://img.onlyclouddg.com/fotos/DG/' . $article->SKU . '/' . $article->SKU . '_1.jpg';
+                        $imageUrl = 'https://posdg.onlyclouddg.com/img/miniaturas/' .  $article->SKU . '.webp';
                         // dd($imageUrl);
-                        $image = @getimagesize($imageUrl);
-                        
+                        // $image = @file_get_contents($imageUrl);
                     @endphp
                     <tr>
                         <td>
-                            @if ($image)
+                            @if ($imageUrl !== false)
                                 <img class="img"src="{{ $imageUrl }}" alt="">
                             @else
                                 <i class="fa fa-picture-o fa-4x" style="color: #E0E0E0; padding:15px"
                                     aria-hidden="true"></i>
                             @endif
                         </td>
-                        <td>{{ $article->SKU }}</td>
+                        <td @if ($article->Descuento != 0) style="color: #FF0000; font-weight: bolder"   @endif>{{ $article->SKU }}</td>
                         <td>{{ $article->Modelo }}</td>
                         <td>{{ $article->Categoria }}</td>
                         <td>{{ $article->Ventas }}</td>
@@ -105,6 +114,7 @@
                         <td>{{ $article->Entradas }}</td>
                         <td>{{ $article->Ajustes }}</td>
                         <td>{{ $article->Devoluciones }}</td>
+                        <td>{{ $article->Descuento }}%</td>
                         <td>
                             <form action="{{ route('detailWeek') }}" method="GET">
                                 @csrf
@@ -125,9 +135,9 @@
                 <p>Por favor, ingrese correctamente la información. </p>
             </div>
         </div>
-        <div id="filtro" class="pagin">
+        {{-- <div id="filtro" class="pagin">
             {{ $articles->appends(request()->query())->links() }}
-        </div>
+        </div> --}}
 
         <!-- Modal para mostrar la imagen más grande -->
         <div class="modal fade" id="imagenModal" tabindex="-1" role="dialog" aria-labelledby="imagenModalLabel"
@@ -171,3 +181,22 @@
         }
     });
 </script>
+@section('js')
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var miTabla = new DataTable('#table', {
+                paging: false,
+                lengthChange: false,
+                info: false,
+                searching: false,
+                
+                columnDefs: [
+                    { orderable: false, targets: [0, 13] } // Desactivar ordenación para la primera y última columna
+                ]
+            });
+        });
+    </script>
+@endsection

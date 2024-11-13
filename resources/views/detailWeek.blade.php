@@ -4,6 +4,10 @@
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @endsection
+
+<head>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/icon.ico') }}">
+</head>
 <div>
     @section('content')
         <link rel="stylesheet" href="{{ asset('assets/home.css') }}">
@@ -20,19 +24,24 @@
                 // Concatenar el SKU a la URL base de la imagen
                 $imageUrl = 'https://img.onlyclouddg.com/fotos/DG/' . $inv->SKU . '/' . $inv->SKU . '_1.jpg';
                 // dd($imageUrl);
+                // $image = @getimagesize($imageUrl);
             @endphp
         @endforeach
         <div class="modal-content">
-            <p class="title">Informacion por periodo (semanal) <i class="fa fa-calendar-check-o" style="padding:5px"
+            <p class="title">Informacion por periodo (Mensual) <i class="fa fa-calendar-check-o" style="padding:5px"
                     aria-hidden="true"></i></p>
             <div class="modalinfo">
                 <div class="imgcontent">
-
-                    <img class="img" src="{{ $imageUrl }}" alt="">
+                    @if ($imageUrl !== false)
+                    <img class="img"src="{{ $imageUrl }}" alt="">
+                @else
+                    <i class="fa fa-picture-o fa-4x" style="color: #E0E0E0; padding:15px"
+                        aria-hidden="true"></i>
+                @endif
                 </div>
-                <div>
-                    <h1>{{ $inv->SKU }}</h1>
-                    <p>{{ $inv->Modelo }}</p>
+                <div class="inf">
+                    <h1 >{{ $inv->SKU }}</h1>
+                    <p >{{ $inv->Modelo }}</p>
                 </div>
             </div>
             <div class="modal-tab">
@@ -40,13 +49,13 @@
                 <table id="table">
                     <thead>
                         <tr>
-                            <th >Semana</th>
+                            <th name="semana">Mes</th>
                             <th>VTA</th>
                             <th>Inv.Inicial</th>
                             <th>Inv.Final</th>
                             <th>ST</th>
+                            <th>Entradas</th>
                             <th>Ajustes</th>
-                            <th>OC</th>
                             <th>Ver Más</th>
                         </tr>
                     </thead>
@@ -58,16 +67,15 @@
                                 <td>{{ $inv->InventarioI }}</td>
                                 <td>{{ $inv->InventarioF }}</td>
                                 <td>{{ $inv->ST }}%</td>
+                                <td>{{$inv->Entradas}}</td>
                                 <td>{{ $inv->Ajustes }}</td>
-                                <td></td>
                                 <td>
                                     <form action="{{ route('detailStore') }}" method="GET">
                                         @csrf
                                         <input type="hidden" name="sku" value="{{ $inv->SKU }}">
                                         <input type="hidden" name="semana" value="{{ $inv->Semana }}">
-                                        <button class="buttonsub" type="submit"><i
-                                                class="fa fa-info-circle fa-lg" style="margin-top: 19px"
-                                                aria-hidden="true"></i></button>
+                                        <button class="buttonsub" type="submit"><i class="fa fa-info-circle fa-lg"
+                                                style="margin-top: 19px" aria-hidden="true"></i></button>
 
                                     </form>
                                 </td>
@@ -114,10 +122,23 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var miTabla = new DataTable('#table', {
-                searching:false,
-
+                searching: false,
+                paging: false,
+                lenghtChange: false,
                 info: false,
-               
+                order: [
+                    [0, ''],
+                    [1, ''],
+                    [2, ''],
+                    [3, ''],
+                    [4, '']
+                ], // Ordena todas las columnas en orden ascendente
+                columnDefs: [{
+                    targets: [
+                    0,6], // Reemplaza 'columnNameToDisableSorting' con el nombre de la columna que deseas desactivar el ordenamiento
+                    orderable: false // Desactiva el ordenamiento para la columna especificada
+                }]
+
             });
         });
     </script>
